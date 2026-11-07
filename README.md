@@ -71,7 +71,7 @@ app/src/main/assets/                질문 은행(questions.json), 시연 데이
 app/src/main/res/                   문자열(strings.xml), 글꼴, 앱 아이콘
 ```
 
-앱 코드의 패키지 이름(`kr.tripbet.app`)은 개발 초기 이름이 남은 것입니다.
+패키지 이름(`kr.tripbet.app`)은 개발 초기 이름이며 2차에 정리할 예정입니다.
 
 ## 라이선스
 
