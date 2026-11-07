@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 화면·음성 문구의 단일 원본은 디자인/문구표.md. 코드에 한글을 직접 쓰지 않고 여기서 가져온다. -->
+<resources>
+    <string name="app_name">노정</string>
+
+    <!-- 여행지 -->
+    <string name="dest_title">어디로 떠날까요?</string>
+    <string name="dest_hint">“%1$s 가자”라고 말해도 돼요.</string>
+    <string name="ai_voice_note">안내 음성은 AI가 만든 합성 음성이에요(Supertonic 3).</string>
+    <string name="dest_button">%1$s 정하기</string>
+    <string name="dest_tag_gangneung">바다와 커피 거리</string>
+    <string name="dest_tag_sokcho">설악산과 닭강정</string>
+    <string name="dest_tag_jeonju">한옥마을과 비빔밥</string>
+    <string name="dest_tag_yeosu">밤바다와 해산물</string>
+    <string name="dest_name_gangneung">강릉</string>
+    <string name="dest_name_sokcho">속초</string>
+    <string name="dest_name_jeonju">전주</string>
+    <string name="dest_name_yeosu">여수</string>
+    <string name="dest_km">약 %1$dkm</string>
+
+    <!-- 경유지 -->
+    <string name="way_title">가는 길에 들를 곳</string>
+    <string name="way_tab_rest">휴게소</string>
+    <string name="way_tab_food">음식점</string>
+    <string name="way_tab_ev">충전소</string>
+    <string name="way_tab_gas">주유소</string>
+    <string name="way_hint">경유지는 최대 2곳까지 고를 수 있어요. %1$d곳 골랐어요.</string>
+    <string name="way_food_line">대표 음식은 %1$s, %2$s</string>
+    <string name="way_rest_line">출발 후 약 %1$s</string>
+    <string name="way_rest_charge">충전 가능</string>
+    <string name="way_tag_food">대표 음식 맞히기</string>
+    <string name="way_button">내기 정하기</string>
+    <string name="way_ev_title">%1$s 충전소</string>
+    <string name="way_ev_line">충전기 %1$d기 중 %2$d기를 쓸 수 있어요(조회 시점 기준)</string>
+    <string name="way_gas_title">주유소 정보는 준비 중이에요.</string>
+    <string name="way_gas_body">이 시연에서는 휴게소와 충전소를 보여 드려요.</string>
+
+    <!-- 내기 걸기 -->
+    <string name="bet_group_rest">휴게소</string>
+    <string name="bet_group_rest_sub">음식 가격·재료 맞히기</string>
+    <string name="bet_group_drive">운행</string>
+    <string name="bet_group_drive_sub">도착·연비 맞히기</string>
+    <string name="bet_group_count">%1$d가지</string>
+    <string name="bet_tab_parked">멈췄을 때</string>
+    <string name="bet_tab_driving">달릴 때</string>
+    <string name="bet_food_price">대표 음식 가격 맞히기</string>
+    <string name="bet_food_price_sub">휴게소 대표 음식의 가격을 맞혀요</string>
+    <string name="bet_food_material">대표 음식 재료 맞히기</string>
+    <string name="bet_food_material_sub">어떤 재료가 들어갈까요</string>
+    <string name="bet_food_name">대표 음식 이름 맞히기</string>
+    <string name="bet_food_name_sub">휴게소 대표 음식의 이름을 맞혀요</string>
+    <string name="bet_gas">휘발유 가격 맞히기</string>
+    <string name="bet_gas_sub">휴게소 주유소의 휘발유 가격을 맞혀요</string>
+    <string name="bet_facility">있는 시설 맞히기</string>
+    <string name="bet_facility_sub">이 휴게소에 있는 시설을 맞혀요</string>
+    <string name="bet_food_once">이 휴게소에서는 음식 질문을 하나만 낼 수 있어요</string>
+    <string name="result_food_name">대표 음식은 %1$s%2$s.</string>
+    <string name="result_gas">휘발유는 리터당 %1$s이에요.</string>
+    <string name="result_facility">이 휴게소에는 %1$s%2$s 있어요.</string>
+    <string name="bet_festival">이번 달 축제 맞히기</string>
+    <string name="bet_festival_sub">목적지에서 이번 달 열리는 축제를 맞혀요</string>
+    <string name="bet_group_region">지역</string>
+    <string name="bet_group_region_sub">목적지 이번 달 축제 맞히기</string>
+    <string name="result_festival">이번 달 축제는 %1$s%2$s.</string>
+    <string name="bet_arrival">내비보다 몇 분 빨리 도착할까요</string>
+    <string name="bet_arrival_sub">실제 도착 시간으로 정답을 확인해요</string>
+    <string name="bet_fuel">다음 휴게소까지 연비 맞히기</string>
+    <string name="bet_fuel_sub">실제 연비로 정답을 확인해요</string>
+    <string name="bet_start">이대로 출발</string>
+    <string name="bet_done_line">%1$s %2$s</string>
+    <string name="bet_not_yet">아직 안 걸었어요</string>
+    <string name="bet_drive_alerts">내기 중간 알림</string>
+    <string name="bet_drive_alerts_sub">달리는 동안 음성으로 상황을 알려 드려요</string>
+    <string name="bet_drive_quiz">관광명소 퀴즈</string>
+    <string name="bet_drive_quiz_sub">지나가는 명소로 퀴즈를 내요</string>
+    <string name="bet_drive_hint">퀴즈는 동승자만 답해요. 달리는 중에는 바꿀 수 없으니 출발 전에 골라 주세요.</string>
+    <string name="switch_on">켜짐</string>
+    <string name="switch_off">꺼짐</string>
+
+    <!-- 답 정하기 -->
+    <string name="guess_turn">%1$s 님 차례예요</string>
+    <string name="arr_b0">5분 이상 빨리</string>
+    <string name="arr_b1">1~4분 빨리</string>
+    <string name="arr_b2">거의 정시</string>
+    <string name="arr_b3">1~4분 늦게</string>
+    <string name="arr_b4">5분 이상 늦게</string>
+    <string name="fuel_b0">10km/L 미만</string>
+    <string name="fuel_b1">10~12km/L</string>
+    <string name="fuel_b2">12~14km/L</string>
+    <string name="fuel_b3">14~16km/L</string>
+    <string name="fuel_b4">16km/L 이상</string>
+    <string name="guess_button">답 정하기</string>
+    <string name="guess_price_label">%1$s 대표 음식</string>
+    <string name="guess_price_q">얼마일까요?</string>
+    <string name="guess_arrival_title">내비보다 몇 분 빨리 도착할까요?</string>
+    <string name="guess_arrival_route">서울에서 %1$s까지</string>
+    <string name="guess_early">빨리 도착</string>
+    <string name="guess_late">늦게 도착</string>
+    <string name="guess_fuel_label">다음 휴게소까지</string>
+    <string name="guess_fuel_title">연비는 얼마일까요?</string>
+    <string name="guess_material_label">%1$s 대표 음식</string>
+    <string name="guess_material_title">어떤 재료가 들어갈까요?</string>
+    <string name="step_minus_won">−%1$s</string>
+    <string name="step_plus_won">+%1$s</string>
+    <string name="step_minus_min">−1분</string>
+    <string name="step_plus_min">+1분</string>
+    <string name="step_minus_fuel">−1</string>
+    <string name="step_plus_fuel">+1</string>
+    <string name="unit_won">원</string>
+    <string name="unit_min">%1$d분</string>
+    <string name="unit_fuel">km/L</string>
+
+    <!-- 출발 준비 -->
+    <string name="ready_title">출발 준비가 끝났어요</string>
+    <string name="ready_sub">%1$s까지, 경유지 %2$d곳</string>
+    <string name="ready_hint">기어를 D에 놓으면 음성으로 안내해요.</string>
+    <string name="ready_parked">멈췄을 때: %1$s</string>
+    <string name="ready_driving">달릴 때: %1$s</string>
+    <string name="ready_none">걸어 둔 내기가 없어요</string>
+    <string name="ready_again">다시 고르기</string>
+
+    <!-- 달리는 중 -->
+    <string name="drive_next">다음 경유지</string>
+    <string name="drive_min_unit">분</string>
+    <string name="drive_voice">음성으로 안내 중이에요</string>
+    <string name="drive_voice_idle">음성 안내만 나와요</string>
+    <string name="quiz_drive_top">%1$s에서 약 %2$skm 떨어진 곳이에요</string>
+    <string name="quiz_drive_reward">이 명소 문제를 다 맞히면 %1$s%2$s 드려요.</string>
+    <string name="quiz_drive_line1">음성으로 퀴즈를 내고 있어요</string>
+    <string name="quiz_drive_line2">함께 의논해서 답해 주세요. 모르면 찾아봐도 괜찮아요.</string>
+    <string name="quiz_drive_line3">답할 시간은 30초예요.</string>
+
+    <!-- 결과 -->
+    <string name="result_loser">%1$s 님이 졌어요</string>
+    <string name="result_tie">둘 다 가까웠어요!</string>
+    <string name="result_arrival_early">내비보다 %1$d분 빨리 도착했어요.</string>
+    <string name="result_arrival_late">내비보다 %1$d분 늦게 도착했어요.</string>
+    <string name="result_arrival_same">내비와 같은 시간에 도착했어요.</string>
+    <string name="result_price">대표 음식 가격은 %1$s이에요.</string>
+    <string name="result_fuel">다음 휴게소까지 실제 연비는 %1$skm/L였어요.</string>
+    <string name="result_material">정답 재료는 %1$s%2$s.</string>
+    <string name="result_diff">%1$s 차이</string>
+    <string name="result_hit">맞혔어요</string>
+    <string name="result_miss">틀렸어요</string>
+    <string name="result_price_source">가격은 도로공사 공개 자료 기준이에요.</string>
+    <string name="result_card_label">%1$s 대표 음식</string>
+    <string name="result_stamp">꼴찌</string>
+    <string name="result_ok">확인</string>
+
+    <!-- 답 확인 -->
+    <string name="confirm_title">내 답이 맞나요?</string>
+    <string name="confirm_heard">음성으로 들은 답이에요</string>
+    <string name="confirm_hint">잘못 알아들었으면 한 번 고칠 수 있어요.</string>
+    <string name="confirm_yes">맞아요</string>
+    <string name="confirm_fix">고칠래요</string>
+    <string name="confirm_fix_title">어느 것이 맞나요?</string>
+    <string name="confirm_no_answer">답을 듣지 못했어요</string>
+
+    <!-- 퀴즈 결과 -->
+    <string name="qres_right">정답이에요</string>
+    <string name="qres_wrong">아쉬워요</string>
+    <string name="qres_score">이 명소 문제 %1$d개 중 %2$d개를 맞혔어요</string>
+    <string name="qres_all_right">이 명소 문제를 모두 맞혔어요</string>
+    <string name="qres_answer">정답은 %1$s%2$s.</string>
+    <string name="qres_basis">근거: %1$s</string>
+    <string name="qres_notice">사진 출처 %1$s. 상품권은 이 명소 근처를 지나가야 하루 한 번 받을 수 있어요. 운전자는 퀴즈 점수에서 빠져요.</string>
+    <string name="qres_credit">사진 출처 %1$s</string>
+    <string name="qres_wrong_note">이 명소 문제를 다 맞혀야 상품권을 받을 수 있어요. 다음 명소에서 다시 도전해 봐요.</string>
+    <string name="qres_get">상품권 받기</string>
+    <string name="qres_close">닫기</string>
+    <string name="qres_next">다음</string>
+    <string name="voucher_tag">시연용 예시, 실제 사용 불가</string>
+    <string name="voucher_where">%1$s 가맹점에서 써요</string>
+    <string name="voucher_where_example">%1$s 가맹점에서 써요, 예: %2$s</string>
+    <string name="wallet_title">지역상품권 지갑</string>
+    <string name="wallet_empty">받은 상품권이 없어요</string>
+    <string name="wallet_hint">멈췄을 때만 열어 볼 수 있어요.</string>
+
+    <!-- 음성 대사(문구표 6절) -->
+    <string name="tts_quiz_intro">%1$s%2$s 가까워요. 퀴즈를 낼게요. %3$s %4$s. 함께 의논해서 답해 주세요. 모르면 찾아봐도 괜찮아요. 30초 드릴게요.</string>
+    <string name="tts_choice">%1$d번 %2$s</string>
+    <string name="demo_label">가상 차량 시연</string>
+    <string name="tts_right">정답이에요!</string>
+    <string name="tts_wrong">아쉬워요. 정답은 %1$s%2$s.</string>
+    <string name="tts_alert">내기 중간 소식이에요. 내비보다 %1$d분 빨라요.</string>
+    <string name="tts_tie">둘 다 가까웠어요!</string>
+    <string name="tts_arrived">다음 휴게소에 도착했어요. 결과를 확인해요.</string>
+</resources>
+
+
+
+

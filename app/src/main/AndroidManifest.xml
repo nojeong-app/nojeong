@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-feature android:name="android.hardware.type.automotive" android:required="false" />
+    <!-- 차량 권한은 Pleos 승인 범위 안에서만. 기어(정차/주행 판단)용 -->
+    <uses-permission android:name="pleos.car.permission.CAR_DRIVE" />
+    <!-- 명소 근접 판정(퀴즈)용 위치 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 음성 안내(Pleos TextToSpeech, 기기 안 처리) -->
+    <uses-permission android:name="pleos.car.permission.TTS_SERVICE" />
+    <application
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.DeviceDefault.NoActionBar">
+        <activity android:name=".MainActivity" android:exported="true" android:configChanges="uiMode|orientation|screenSize|smallestScreenSize|screenLayout|density">
+            <!-- 주행 중에도 이 화면(주행 중 화면)을 허용해 달라는 표시. 정차 전용 화면은 앱이 스스로 숨긴다 -->
+            <meta-data android:name="distractionOptimized" android:value="true" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
+
+
+
+
+
+

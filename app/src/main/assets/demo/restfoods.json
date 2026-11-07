@@ -1,0 +1,151 @@
+[
+ {
+  "order": 1,
+  "rest": "덕평휴게소",
+  "addr": "경기 이천시 마장면각평리 319",
+  "minFromStart": 50,
+  "food": "특)덕평소고기국밥",
+  "price": 13000,
+  "note": null,
+  "best": true,
+  "recommended": false,
+  "materials": [],
+  "lat": 37.24133,
+  "lng": 127.389428
+ },
+ {
+  "order": 1,
+  "rest": "덕평휴게소",
+  "addr": "경기 이천시 마장면각평리 319",
+  "minFromStart": 50,
+  "food": "덕평왕돈까스",
+  "price": 11000,
+  "note": null,
+  "best": true,
+  "recommended": false,
+  "materials": [],
+  "lat": 37.24133,
+  "lng": 127.389428
+ },
+ {
+  "order": 2,
+  "rest": "여주(강릉)휴게소",
+  "addr": "경기 여주군 가남면본두리 687-1",
+  "minFromStart": 60,
+  "food": "용대리황태해장국",
+  "price": 10000,
+  "note": "용대리 황태로 끓인 해장국",
+  "best": true,
+  "recommended": false,
+  "materials": [],
+  "lat": 37.238548,
+  "lng": 127.569035
+ },
+ {
+  "order": 3,
+  "rest": "문막(강릉)휴게소",
+  "addr": "강원 원주시 문막읍원문로 1234",
+  "minFromStart": 80,
+  "food": "문막장터국밥",
+  "price": 10000,
+  "note": "얼큰하고 매콤한 장터국밥",
+  "best": true,
+  "recommended": false,
+  "materials": [
+   "소고기",
+   "콩나물",
+   "고사리",
+   "무",
+   "대파",
+   "반찬 4종류"
+  ],
+  "lat": 37.335429,
+  "lng": 127.857693
+ },
+ {
+  "order": 3,
+  "rest": "문막(강릉)휴게소",
+  "addr": "강원 원주시 문막읍원문로 1234",
+  "minFromStart": 80,
+  "food": "치악산복숭아불고기백반",
+  "price": 15000,
+  "note": "복숭아 효소로 끓인 불고기 정식",
+  "best": true,
+  "recommended": false,
+  "materials": [
+   "소고기",
+   "양파",
+   "파",
+   "치악산복숭아효소"
+  ],
+  "lat": 37.335429,
+  "lng": 127.857693
+ },
+ {
+  "order": 4,
+  "rest": "횡성(강릉)휴게소",
+  "addr": "강원도 횡성군 안흥면 영동고속도로 154",
+  "minFromStart": 100,
+  "food": "횡성한우국밥",
+  "price": 10000,
+  "note": "횡성 한우로 끓인 국밥",
+  "best": true,
+  "recommended": false,
+  "materials": [
+   "횡성한우",
+   "콩나물",
+   "얼갈이",
+   "무"
+  ],
+  "lat": 37.463308,
+  "lng": 128.134391
+ },
+ {
+  "order": 4,
+  "rest": "횡성(강릉)휴게소",
+  "addr": "강원도 횡성군 안흥면 영동고속도로 154",
+  "minFromStart": 100,
+  "food": "횡성한우떡더덕스테이크",
+  "price": 16000,
+  "note": "한우와 더덕을 함께 구운 스테이크",
+  "best": true,
+  "recommended": false,
+  "materials": [
+   "횡성한우",
+   "더덕",
+   "계란",
+   "샐러드"
+  ],
+  "lat": 37.463308,
+  "lng": 128.134391
+ },
+ {
+  "order": 5,
+  "rest": "평창(강릉)휴게소",
+  "addr": "강원도 평창군 용평면이목정리 778-2",
+  "minFromStart": 130,
+  "food": "아바이순대국밥",
+  "price": 12000,
+  "note": "아바이순대를 넣어 끓인 국밥",
+  "best": true,
+  "recommended": false,
+  "materials": [
+   "머릿고기(국내산)",
+   "돼지고기 (국내산)"
+  ],
+  "lat": 37.60581,
+  "lng": 128.453116
+ },
+ {
+  "order": 6,
+  "rest": "강릉(강릉)휴게소",
+  "addr": "",
+  "minFromStart": 160,
+  "food": "초당두부황태해장국",
+  "price": 10000,
+  "note": null,
+  "best": true,
+  "recommended": false,
+  "materials": []
+ }
+]
