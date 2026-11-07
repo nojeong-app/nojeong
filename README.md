@@ -23,6 +23,11 @@ Pleos Connect(안드로이드 오토모티브, API 34)용 앱이고, 정차 중�
 - **퀴즈와 상품권**: 명소당 1~2문항을 모두 맞히면 지역사랑상품권(시연용 예시)을 받습니다.
 - **음성**: 미리 만든 음성 파일을 재생합니다(아래 라이선스 참고). Pleos 음성 합성(TextToSpeech)이 준비되면 그쪽을 먼저 씁니다.
 
+## 설치 파일(APK)
+
+- 내려받기: https://github.com/nojeong-app/nojeong/raw/main/apk/nojeong.apk (약 47MB, 서명된 제출용 빌드)
+- Pleos Connect 가상 차량(에뮬레이터)에 `adb install nojeong.apk` 로 설치합니다.
+
 ## 실행 방법 (Pleos 가상 차량)
 
 1. Android Studio와 JDK 17을 준비합니다.
