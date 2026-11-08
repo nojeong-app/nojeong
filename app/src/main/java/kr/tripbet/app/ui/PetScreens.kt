@@ -150,27 +150,28 @@ fun PetProfileScreen(g: Game) {
     var h by remember { mutableStateOf(g.pet.heightCm) }       // 0 = 아직 안 정함
     var w by remember { mutableStateOf(g.pet.weightKg) }
     var d by remember { mutableStateOf(g.pet.dangerous) }
+    // 658×552 에서 스크롤 없이 한 화면에 들어가도록: 이름 한 줄 / 체고·몸무게 나란히 / 맹견 한 줄
     Frame(
         title = stringResource(R.string.pet_profile_title), onBack = { g.petScreen = 1 },
-        note = stringResource(R.string.pet_profile_hint),
         button = stringResource(R.string.pet_save), onButton = { g.savePet(PetProfile(name.trim(), h, w, d)); g.petScreen = 1 }
     ) {
         SurfaceCard(Modifier.fillMaxWidth()) {
-            Row(Modifier.fillMaxWidth().padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
-                Text(stringResource(R.string.pet_f_name), style = ItemTitle.ko(), color = c.text, modifier = Modifier.width(120.dp))
+            Row(Modifier.fillMaxWidth().padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                Text(stringResource(R.string.pet_f_name), style = ItemTitle.ko(), color = c.text, modifier = Modifier.width(110.dp))
                 Box(Modifier.weight(1f).height(TripDims.Touch).clip(RoundedCornerShape(TripDims.ButtonRadius)).background(c.surfaceHigh).padding(horizontal = 20.dp), contentAlignment = Alignment.CenterStart) {
                     if (name.isEmpty()) Text(stringResource(R.string.pet_f_name_hint), style = TripType.BodySmall.ko(), color = c.textSecondary, maxLines = 1)
                     BasicTextField(name, { if (it.length <= 8) name = it }, singleLine = true, textStyle = TripType.BodySmall.ko().copy(color = c.text), cursorBrush = SolidColor(c.primary), modifier = Modifier.fillMaxWidth())
                 }
             }
             Divider()
-            NumberRow(stringResource(R.string.pet_f_height), stringResource(R.string.pet_f_height_sub), h, stringResource(R.string.pet_unit_cm),
-                { h = if (h == 0) 40 else (h - 5).coerceAtLeast(5) }, { h = if (h == 0) 40 else (h + 5).coerceAtMost(100) })
+            Row(Modifier.fillMaxWidth().padding(vertical = 4.dp), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                NumberCell(Modifier.weight(1f), stringResource(R.string.pet_f_height) + " · " + stringResource(R.string.pet_f_height_sub), h, stringResource(R.string.pet_unit_cm),
+                    { h = if (h == 0) 40 else (h - 5).coerceAtLeast(5) }, { h = if (h == 0) 40 else (h + 5).coerceAtMost(100) })
+                NumberCell(Modifier.weight(1f), stringResource(R.string.pet_f_weight), w, stringResource(R.string.pet_unit_kg),
+                    { w = if (w == 0) 10 else (w - 1).coerceAtLeast(1) }, { w = if (w == 0) 10 else (w + 1).coerceAtMost(80) })
+            }
             Divider()
-            NumberRow(stringResource(R.string.pet_f_weight), null, w, stringResource(R.string.pet_unit_kg),
-                { w = if (w == 0) 10 else (w - 1).coerceAtLeast(1) }, { w = if (w == 0) 10 else (w + 1).coerceAtMost(80) })
-            Divider()
-            Row(Modifier.fillMaxWidth().padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
+            Row(Modifier.fillMaxWidth().padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
                 Text(stringResource(R.string.pet_f_danger), style = ItemTitle.ko(), color = c.text, modifier = Modifier.weight(1f))
                 Segmented(listOf(stringResource(R.string.pet_danger_no), stringResource(R.string.pet_danger_yes)), if (d) 1 else 0, Modifier.width(300.dp)) { d = it == 1 }
             }
@@ -178,18 +179,18 @@ fun PetProfileScreen(g: Game) {
     }
 }
 
+/** 라벨 위, 아래에 − 값 +(단추 76dp). */
 @Composable
-private fun NumberRow(label: String, sub: String?, value: Int, unit: String, onMinus: () -> Unit, onPlus: () -> Unit) {
+private fun NumberCell(modifier: Modifier, label: String, value: Int, unit: String, onMinus: () -> Unit, onPlus: () -> Unit) {
     val c = TripTheme.colors
-    Row(Modifier.fillMaxWidth().padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
-        Column(Modifier.weight(1f)) {
-            Text(label, style = ItemTitle.ko(), color = c.text)
-            if (sub != null) Text(sub, style = TripType.LabelSmall.ko(), color = c.textSecondary)
+    Column(modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(label, style = TripType.LabelSmall.ko(), color = c.textSecondary, maxLines = 1)
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Box(Modifier.size(TripDims.Touch).clip(CircleShape).background(c.surfaceHigh).clickable(onClick = onMinus), contentAlignment = Alignment.Center) { Text("−", style = TripType.BodyMedium.copy(fontWeight = FontWeight.Bold).ko(), color = c.text) }
+            Text(if (value == 0) stringResource(R.string.pet_unset) else "$value$unit", style = TripType.BodyMedium.copy(fontWeight = FontWeight.Bold).ko(),
+                color = if (value == 0) c.textSecondary else c.text, modifier = Modifier.weight(1f), textAlign = TextAlign.Center, maxLines = 1)
+            Box(Modifier.size(TripDims.Touch).clip(CircleShape).background(c.surfaceHigh).clickable(onClick = onPlus), contentAlignment = Alignment.Center) { Text("+", style = TripType.BodyMedium.copy(fontWeight = FontWeight.Bold).ko(), color = c.text) }
         }
-        Stepper("−", onMinus)
-        Text(if (value == 0) stringResource(R.string.pet_unset) else "$value$unit", style = TripType.BodyMedium.copy(fontWeight = FontWeight.Bold).ko(),
-            color = if (value == 0) c.textSecondary else c.text, modifier = Modifier.widthIn(min = 120.dp), textAlign = TextAlign.Center, maxLines = 1)
-        Stepper("+", onPlus)
     }
 }
 
@@ -234,58 +235,75 @@ fun PetDetailScreen(g: Game, data: DemoData) {
     val no = j.verdict == PetVerdict.NO
     val stopFull = data.restStops.firstOrNull { cleanStopName(it.name) == spot.name }
     val sel = stopFull != null && stopFull.order in g.picked
+    val demo = g.petStore?.demoDepart
+    val none = stringResource(R.string.pet_val_none)
+    val hasProfile = p.filled
+    // 칸: 자료가 있는 항목만 두 열 격자로(체고 한도는 판정 근거라 항상). 자료 없는 항목은 아래 한 줄로 모아 알린다.
+    val cells = buildList {
+        spot.constructionOrClosed?.let { add(Triple(stringResource(R.string.pet_row_status), spot.status ?: "", PetVerdict.NO as PetVerdict?)) }
+        add(Triple(stringResource(R.string.pet_row_height), spot.heightLimitCm?.let { stringResource(R.string.pet_val_height, it) } ?: none,
+            if (!hasProfile) null else spot.heightLimitCm?.let { if (p.heightCm > it) PetVerdict.NO else PetVerdict.OK } ?: PetVerdict.CHECK))
+        spot.weightLimitKg?.let { add(Triple(stringResource(R.string.pet_row_weight), stringResource(R.string.pet_val_weight, it), if (!hasProfile) null else if (p.weightKg > it) PetVerdict.NO else PetVerdict.OK)) }
+        spot.sizeSplit?.let { add(Triple(stringResource(R.string.pet_row_size), shortSize(it), null)) }
+        spot.breedRule?.let { add(Triple(stringResource(R.string.pet_row_breed), it, if (p.dangerous) PetVerdict.CHECK else null)) }
+        spot.fee?.let { add(Triple(stringResource(R.string.pet_row_fee), it, null)) }
+        if (!closed) spot.hours?.let { add(Triple(stringResource(R.string.pet_row_hours), it, null)) }
+        spot.direction?.let { add(Triple(stringResource(R.string.pet_row_dir), it, null)) }
+    }
+    val missing = buildList {
+        if (spot.breedRule == null) add(stringResource(R.string.pet_row_breed))
+        if (spot.fee == null) add(stringResource(R.string.pet_row_fee))
+        if (spot.hours == null) add(stringResource(R.string.pet_row_hours))
+    }
     Frame(
         title = stringResource(R.string.pet_detail_title, spot.name + "휴게소"), onBack = { g.petScreen = 0 },
-        note = stringResource(R.string.pet_asof, spot.asOfText ?: g.petData?.asOfFallback ?: "") +
-            (g.petStore?.demoDepart?.let { " · " + stringResource(R.string.pet_demo_time, fmt(it)) } ?: ""),
+        note = stringResource(R.string.pet_asof, spot.asOfText ?: g.petData?.asOfFallback ?: ""),
         button = stringResource(if (no) R.string.pet_other_rest else R.string.pet_to_waypoint),
         onButton = { if (!no && stopFull != null && !sel && g.picked.size < 2) g.picked.add(stopFull.order); g.petScreen = 0 }
     ) {
         SurfaceCard(Modifier.fillMaxWidth()) {
-            Row(Modifier.fillMaxWidth().padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
-                VerdictMark(j.verdict, 52.dp); Spacer(Modifier.width(16.dp))
+            Row(Modifier.fillMaxWidth().padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                VerdictMark(j.verdict, 48.dp); Spacer(Modifier.width(14.dp))
                 Column {
-                    Text(verdictLabel(j.verdict), style = TripType.TitleMedium.ko(), color = c.text)
+                    Text(verdictLabel(j.verdict), style = TripType.TitleSmall.ko(), color = c.text)
                     Text(petReasonText(j, spot, p), style = TripType.LabelSmall.ko(), color = c.textSecondary, maxLines = 2)
                 }
             }
-        }
-        if (closed) {
-            Spacer(Modifier.height(8.dp))
-            SurfaceCard(Modifier.fillMaxWidth()) {
+            if (closed) {
+                Divider()
                 Row(Modifier.fillMaxWidth().padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-                    VerdictMark(PetVerdict.CHECK, 30.dp); Spacer(Modifier.width(12.dp))
+                    VerdictMark(PetVerdict.CHECK, 28.dp); Spacer(Modifier.width(12.dp))
                     Column {
-                        Text(stringResource(R.string.pet_closed_arrive), style = ItemTitle.ko(), color = c.text)
-                        Text(stringResource(R.string.pet_closed_arrive_detail, fmt(arrival), spot.hours ?: ""), style = TripType.LabelSmall.ko(), color = c.textSecondary, maxLines = 2)
+                        Text(stringResource(R.string.pet_closed_arrive), style = TripType.LabelMedium.copy(fontWeight = FontWeight.Bold).ko(), color = c.text)
+                        Text(if (demo != null) stringResource(R.string.pet_closed_arrive_demo, fmt(demo), fmt(arrival), spot.openRange?.let { fmt(it.first) + "~" + fmt(it.second) } ?: (spot.hours ?: "")) else stringResource(R.string.pet_closed_arrive_detail, fmt(arrival), spot.openRange?.let { fmt(it.first) + "~" + fmt(it.second) } ?: (spot.hours ?: "")), style = TripType.LabelSmall.ko(), color = c.textSecondary, maxLines = 2)
                     }
                 }
             }
         }
         Spacer(Modifier.height(8.dp))
-        val none = stringResource(R.string.pet_val_none)
-        val hasProfile = p.filled
-        val rows = buildList {
-            spot.constructionOrClosed?.let { add(Triple(stringResource(R.string.pet_row_status), spot.status ?: "", PetVerdict.NO as PetVerdict?)) }
-            add(Triple(stringResource(R.string.pet_row_height),
-                spot.heightLimitCm?.let { stringResource(R.string.pet_val_height, it) } ?: none,
-                if (!hasProfile) null else spot.heightLimitCm?.let { if (p.heightCm > it) PetVerdict.NO else PetVerdict.OK } ?: PetVerdict.CHECK))
-            spot.weightLimitKg?.let { add(Triple(stringResource(R.string.pet_row_weight), stringResource(R.string.pet_val_weight, it), if (!hasProfile) null else if (p.weightKg > it) PetVerdict.NO else PetVerdict.OK)) }
-            add(Triple(stringResource(R.string.pet_row_size), spot.sizeSplit ?: none, null))
-            add(Triple(stringResource(R.string.pet_row_breed), spot.breedRule ?: none, if (p.dangerous) PetVerdict.CHECK else null))
-            add(Triple(stringResource(R.string.pet_row_fee), spot.fee ?: none, null))
-            add(Triple(stringResource(R.string.pet_row_hours), spot.hours ?: none, if (closed) PetVerdict.CHECK else null))
-            spot.direction?.let { add(Triple(stringResource(R.string.pet_row_dir), it, null)) }
-        }
         SurfaceCard(Modifier.fillMaxWidth()) {
-            rows.forEachIndexed { i, (label, value, mark) ->
+            cells.chunked(2).forEachIndexed { i, row ->
                 if (i > 0) Divider()
-                Row(Modifier.fillMaxWidth().padding(vertical = 5.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Text(label, style = TripType.LabelSmall.ko(), color = c.textSecondary, modifier = Modifier.width(130.dp))
-                    Text(value, style = TripType.BodySmall.copy(fontWeight = FontWeight.Bold).ko(), color = c.text, modifier = Modifier.weight(1f), maxLines = 2)
-                    if (mark != null) VerdictMark(mark, 26.dp)
+                Row(Modifier.fillMaxWidth().padding(vertical = 4.dp), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                    row.forEach { (label, value, mark) ->
+                        Row(Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
+                            Column(Modifier.weight(1f)) {
+                                Text(label, style = TripType.LabelSmall.ko(), color = c.textSecondary, maxLines = 1)
+                                Text(value, style = TripType.BodySmall.copy(fontWeight = FontWeight.Bold).ko(), color = c.text, maxLines = 2)
+                            }
+                            if (mark != null) { Spacer(Modifier.width(6.dp)); VerdictMark(mark, 24.dp) }
+                        }
+                    }
+                    if (row.size == 1) Spacer(Modifier.weight(1f))
                 }
+            }
+            if (missing.isNotEmpty()) {
+                Divider()
+                Text(missing.joinToString("·") + " " + none, style = TripType.LabelSmall.ko(), color = c.textSecondary, modifier = Modifier.padding(vertical = 3.dp), maxLines = 1)
             }
         }
     }
 }
+
+/** 칸에 들어가도록 긴 크기 구분 글을 같은 뜻으로 줄인다(원문 의미를 바꾸지 않음). */
+private fun shortSize(s: String): String = if (s.contains("수영장만")) "수영장만 구역 구분" else s

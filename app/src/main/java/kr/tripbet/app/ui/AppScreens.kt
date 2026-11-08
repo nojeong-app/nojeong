@@ -462,10 +462,9 @@ fun WayScreen(g: Game, data: DemoData) {
     val petOn = g.petOn && pd != null && pd.spots.isNotEmpty()
     Frame(
         title = stringResource(R.string.way_title), onBack = { g.step = Step.DEST },
-        hint = stringResource(R.string.way_hint, g.picked.size),
+        hint = if (petOn && tab == Tab.REST) null else stringResource(R.string.way_hint, g.picked.size),   // 동반 모드에서는 목록 자리를 위해 안내 줄을 뺀다
         titleEnd = { PetChip(g) },
-        note = if (petOn && tab == Tab.REST) stringResource(R.string.pet_asof, pd!!.spots.firstOrNull()?.asOfText ?: pd.asOfFallback) +
-            (g.petStore?.demoDepart?.let { " · " + stringResource(R.string.pet_demo_time, fmt(it)) } ?: "") else null,
+        note = if (petOn && tab == Tab.REST) stringResource(R.string.pet_asof, pd!!.spots.firstOrNull()?.asOfText ?: pd.asOfFallback) else null,
         button = stringResource(R.string.way_button), onButton = { g.step = Step.BET }
     ) {
         Segmented(Tab.values().map { stringResource(it.label) }, tab.ordinal) { tab = Tab.values()[it] }
@@ -485,7 +484,7 @@ fun WayScreen(g: Game, data: DemoData) {
                             }
                             val charge = data.chargeStops.any { it.name.contains(r.name.removeSuffix("휴게소")) }
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                Text(stringResource(R.string.way_rest_line, hm(r.minFromStart, "시간", "분")), style = TripType.LabelSmall.ko(), color = c.textSecondary, maxLines = 1)
+                                Text(stringResource(R.string.way_rest_line, hm(r.minFromStart, "시간", "분")) + (if (petSpot != null) g.petStore?.demoDepart?.let { " · " + stringResource(R.string.pet_demo_label, fmt(it)) }.orEmpty() else ""), style = TripType.LabelSmall.ko(), color = c.textSecondary, maxLines = 1)
                                 if (charge) { Spacer(Modifier.width(8.dp)); BoltIcon() }
                             }
                             if (petSpot != null && closedAtArrival(petSpot, petArrival(g, data, petSpot)) == true)

@@ -238,6 +238,8 @@
     <string name="pet_closed_arrive">도착 때는 문 닫는 시간이에요</string>
     <string name="pet_closed_arrive_detail">도착 예상 %1$s · 운영 %2$s</string>
     <string name="pet_demo_time">시연용 시각 %1$s 출발 기준</string>
+    <string name="pet_demo_label">시연용 시각 %1$s 출발</string>
+    <string name="pet_closed_arrive_demo">출발 %1$s(시연용 시각) → 도착 %2$s · 운영 %3$s</string>
     <string name="pet_to_waypoint">경유지로 넣기</string>
     <string name="pet_other_rest">다른 휴게소 보기</string>
     <string name="pet_drive_tag">반려견 놀이터 %1$s</string>
