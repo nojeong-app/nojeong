@@ -178,6 +178,8 @@
 
     <!-- 음성 대사(문구표 6절) -->
     <string name="tts_quiz_intro">%1$s%2$s 가까워요. 퀴즈를 낼게요. %3$s %4$s. 함께 의논해서 답해 주세요. 모르면 찾아봐도 괜찮아요. 30초 드릴게요.</string>
+    <string name="cap_quiz_intro">%1$s%2$s 가까워요. 퀴즈를 낼게요.</string>
+    <string name="cap_quiz_outro">함께 의논해서 답해 주세요. 모르면 찾아봐도 괜찮아요. 30초 드릴게요.</string>
     <string name="tts_choice">%1$d번 %2$s</string>
     <string name="demo_label">가상 차량 시연</string>
     <string name="tts_right">정답이에요!</string>

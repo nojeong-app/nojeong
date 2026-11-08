@@ -112,11 +112,12 @@ class QuizDriver(private val ctx: Context, private val data: QuizData, private v
     private fun clipExists(key: String) = try { ctx.assets.openFd("tts/$key.m4a").close(); true } catch (e: Exception) { false }
 
     /** 파일 키 목록을 차례로 재생한다. 하나라도 없으면 false(다른 방법으로 넘어간다). */
-    private fun playClips(keys: List<String>): Boolean {
+    private fun playClips(keys: List<String>, parts: List<String> = emptyList()): Boolean {
         if (keys.isEmpty() || !keys.all { clipExists(it) }) return false
         try { player?.release() } catch (e: Exception) { }
         fun next(i: Int) {
             if (i >= keys.size) return
+            if (parts.size == keys.size) main.post { onCaption(parts[i]) }   // 긴 안내는 음성 조각마다 나눠 차례로 보인다(문장 중간에서 끊기지 않게)
             val fd = ctx.assets.openFd("tts/${keys[i]}.m4a")
             val mp = android.media.MediaPlayer()
             mp.setAudioAttributes(android.media.AudioAttributes.Builder().setUsage(android.media.AudioAttributes.USAGE_MEDIA).setContentType(android.media.AudioAttributes.CONTENT_TYPE_SPEECH).build())
@@ -133,10 +134,10 @@ class QuizDriver(private val ctx: Context, private val data: QuizData, private v
      * 말하고, 같은 문장을 화면 위쪽에 자막으로도 보인다. 순서: Pleos TTS(준비됐으면) → 미리 만든 음성 파일(clips) → 안드로이드 기본 TTS.
      * @param clips 이 문장에 해당하는 음성 파일 키(없으면 빈 목록)
      */
-    fun speak(text: String, clips: List<String> = emptyList()) {
-        onCaption(text)
+    fun speak(text: String, clips: List<String> = emptyList(), parts: List<String> = emptyList()) {
+        onCaption(if (parts.isNotEmpty()) parts[0] else text)
         if (pleosReady) { try { pleos?.speak(text, false); return } catch (e: Exception) { Log.w("TripBet", "Pleos 말하기 실패: ${e.message}") } }
-        if (playClips(clips)) return
+        if (playClips(clips, parts)) return
         tts?.speak(text, TextToSpeech.QUEUE_ADD, null, "tb")
     }
 
@@ -160,7 +161,12 @@ class QuizDriver(private val ctx: Context, private val data: QuizData, private v
         speak(
             if (s.asking == 0) ctx.getString(R.string.tts_quiz_intro, s.place.name, Josa.iGa(s.place.name), q.question, choices)
             else "${q.question} $choices.",
-            keys
+            keys,
+            if (s.asking == 0 && keys.size == 3) listOf(
+                ctx.getString(R.string.cap_quiz_intro, s.place.name, Josa.iGa(s.place.name)),
+                "${q.question} $choices.",
+                ctx.getString(R.string.cap_quiz_outro)
+            ) else emptyList()
         )
         main.removeCallbacks(timeout); main.postDelayed(timeout, answerSeconds * 1000)
     }

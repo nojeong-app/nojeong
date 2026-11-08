@@ -207,7 +207,7 @@ fun TripBetApp(locationGranted: Boolean = true) {
             g.caption?.let { cap ->
                 Row(Modifier.fillMaxWidth().padding(top = 8.dp, start = 16.dp, end = 10.dp), verticalAlignment = Alignment.CenterVertically) {
                     Box(Modifier.weight(1f).clip(RoundedCornerShape(20.dp)).background(c.surfaceAccent).padding(horizontal = 18.dp, vertical = 6.dp)) {
-                        Text(cap, style = TripType.LabelMedium.ko(), color = c.text, maxLines = 2)
+                        Text(cap, style = TripType.LabelMedium.ko(), color = c.text, maxLines = 4)
                     }
                     if (demoShown) { Spacer(Modifier.width(8.dp)); DemoTag() }   // 자막이 있으면 꼬리표는 자막 줄 오른쪽 끝에 붙여 겹치지 않게
                 }
