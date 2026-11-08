@@ -50,6 +50,15 @@ import kr.tripbet.app.QuizSession
 import kr.tripbet.app.R
 import kr.tripbet.app.RideMeter
 import kr.tripbet.app.data.DemoData
+import kr.tripbet.app.data.PetData
+import kr.tripbet.app.data.closedAtArrival
+import kr.tripbet.app.data.PetProfile
+import kr.tripbet.app.data.PetSpot
+import kr.tripbet.app.data.PetStore
+import kr.tripbet.app.data.PetVerdict
+import kr.tripbet.app.data.judgePet
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.ui.graphics.SolidColor
 import kr.tripbet.app.data.RestFood
 import kr.tripbet.app.data.Voucher
 import kr.tripbet.app.data.loadQuiz
@@ -115,6 +124,15 @@ class Game {
     val wallet = mutableStateListOf<Voucher>()
     var showWallet by mutableStateOf(false)
     var caption by mutableStateOf<String?>(null)          // 음성 대사 자막
+    // 반려동물 동반: 켜기·프로필은 기기 안에만 저장(PetStore). 서버·계정 없음.
+    var petOn by mutableStateOf(false)
+    var pet by mutableStateOf(PetProfile())
+    var petScreen by mutableStateOf(0)                    // 0 없음, 1 동반 모드, 2 반려견 정보, 3 휴게소 반려 상세
+    var petStop by mutableStateOf<String?>(null)          // 상세로 열 휴게소(정리된 이름)
+    var petStore: PetStore? = null
+    var petData: PetData? = null
+    fun switchPet(v: Boolean) { petOn = v; petStore?.on = v }
+    fun savePet(p: PetProfile) { pet = p; petStore?.profile = p }
     fun has(k: Kind, who: String) = guesses.containsKey("${k.name}:$who")
     fun guess(k: Kind, who: String) = guesses["${k.name}:$who"] ?: k.start
     fun setGuess(k: Kind, who: String, v: Int) { guesses["${k.name}:$who"] = v }
@@ -142,7 +160,12 @@ fun TripBetApp(locationGranted: Boolean = true) {
     val ctx = LocalContext.current
     val data = remember { DemoData(ctx) }
     val bank = remember { QuestionBank(ctx) }
-    val g = remember { Game() }
+    val g = remember {
+        Game().also { gm ->
+            val ps = PetStore(ctx); gm.petStore = ps; gm.petData = PetData(ctx)
+            gm.petOn = ps.on; gm.pet = ps.profile
+        }
+    }
     val driving = DrivingGate.state == DrivingState.DRIVING
     val quizData = remember { loadQuiz(ctx) }
     val driverRef = remember { arrayOfNulls<QuizDriver>(1) }
@@ -197,6 +220,9 @@ fun TripBetApp(locationGranted: Boolean = true) {
                 q != null && !q.confirmed -> if (q.fixing) FixScreen(q) else ConfirmScreen(q)
                 q != null -> QuizResultScreen(g, q, quizData.credit) { driver.clear() }
                 g.showResult -> ResultScreen(g, data)
+                g.petScreen == 1 -> PetSettingsScreen(g)
+                g.petScreen == 2 -> PetProfileScreen(g)
+                g.petScreen == 3 -> PetDetailScreen(g, data)
                 else -> when (g.step) {
                     Step.DEST -> DestScreen(g)
                     Step.WAY -> WayScreen(g, data)
@@ -222,7 +248,7 @@ fun pad(): Dp = if (LocalCompact.current) 28.dp else TripDims.ScreenPadding
 fun Frame(
     title: String?, onBack: (() -> Unit)? = null, hint: String? = null, hintMic: Boolean = false,
     button: String? = null, buttonPrimary: Boolean = true, onButton: () -> Unit = {},
-    button2: String? = null, onButton2: () -> Unit = {}, note: String? = null,
+    button2: String? = null, onButton2: () -> Unit = {}, note: String? = null, titleEnd: (@Composable () -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     val c = TripTheme.colors
@@ -230,7 +256,8 @@ fun Frame(
         if (title != null) {
             Row(Modifier.fillMaxWidth().padding(bottom = 12.dp), verticalAlignment = Alignment.CenterVertically) {
                 if (onBack != null) { BackButton(onBack); Spacer(Modifier.width(20.dp)) }
-                Text(title, style = TripType.TitleMedium.ko(), color = c.text, maxLines = 1)
+                Text(title, style = TripType.TitleMedium.ko(), color = c.text, maxLines = 1, modifier = Modifier.weight(1f))
+                titleEnd?.invoke()
             }
         }
         Column(Modifier.weight(1f).verticalScroll(rememberScrollState()), content = content)
@@ -431,17 +458,25 @@ enum class Tab(@StringRes val label: Int) { REST(R.string.way_tab_rest), FOOD(R.
 fun WayScreen(g: Game, data: DemoData) {
     val c = TripTheme.colors
     var tab by remember { mutableStateOf(Tab.REST) }
+    val pd = g.petData
+    val petOn = g.petOn && pd != null && pd.spots.isNotEmpty()
     Frame(
         title = stringResource(R.string.way_title), onBack = { g.step = Step.DEST },
         hint = stringResource(R.string.way_hint, g.picked.size),
+        titleEnd = { PetChip(g) },
+        note = if (petOn && tab == Tab.REST) stringResource(R.string.pet_asof, pd!!.spots.firstOrNull()?.asOfText ?: pd.asOfFallback) +
+            (g.petStore?.demoDepart?.let { " · " + stringResource(R.string.pet_demo_time, fmt(it)) } ?: "") else null,
         button = stringResource(R.string.way_button), onButton = { g.step = Step.BET }
     ) {
         Segmented(Tab.values().map { stringResource(it.label) }, tab.ordinal) { tab = Tab.values()[it] }
         Spacer(Modifier.height(12.dp))
         SurfaceCard(Modifier.fillMaxWidth()) {
             when (tab) {
-                Tab.REST -> data.restStops.filter { it.order in listOf(1, 4, 5) }.forEachIndexed { i, r ->
+                Tab.REST -> data.restStops.filter { it.order in listOf(1, 4, 5) }
+                    .let { l -> if (petOn) l.sortedWith(compareBy({ r -> pd!!.forStop(r.name)?.let { judgePet(it, g.pet).verdict.ordinal } ?: 3 }, { it.minFromStart })) else l }   // 동반 모드: 이용 가능→조건 확인→이용 불가→시설 없음, 같은 단계는 시간순
+                    .forEachIndexed { i, r ->
                     val sel = r.order in g.picked
+                    val petSpot = if (petOn) pd!!.forStop(r.name) else null
                     if (i > 0) Divider()
                     Row(Modifier.fillMaxWidth().clickable { if (sel) g.picked.remove(r.order) else if (g.picked.size < 2) g.picked.add(r.order) }.padding(vertical = 2.dp), verticalAlignment = Alignment.CenterVertically) {
                         Column(Modifier.weight(1f)) {
@@ -453,11 +488,14 @@ fun WayScreen(g: Game, data: DemoData) {
                                 Text(stringResource(R.string.way_rest_line, hm(r.minFromStart, "시간", "분")), style = TripType.LabelSmall.ko(), color = c.textSecondary, maxLines = 1)
                                 if (charge) { Spacer(Modifier.width(8.dp)); BoltIcon() }
                             }
+                            if (petSpot != null && closedAtArrival(petSpot, petArrival(g, data, petSpot)) == true)
+                                Text(stringResource(R.string.pet_closed_arrive), style = TripType.LabelSmall.copy(fontWeight = FontWeight.Bold).ko(), color = c.text, maxLines = 1)
                         }
                         Column(horizontalAlignment = Alignment.End) {
                             RoofArt()   // 카드 오른쪽 위에 두어 기와 모양으로 읽히게
                             Spacer(Modifier.height(3.dp))
-                            Box(Modifier.clip(RoundedCornerShape(16.dp)).background(c.surfaceHigh).padding(horizontal = 12.dp, vertical = 2.dp)) {
+                            if (petSpot != null) PetStopTag(judgePet(petSpot, g.pet).verdict) { g.petStop = petSpot.name; g.petScreen = 3 }
+                            else Box(Modifier.clip(RoundedCornerShape(16.dp)).background(c.surfaceHigh).padding(horizontal = 12.dp, vertical = 2.dp)) {
                                 Text(stringResource(R.string.way_tag_food), style = TripType.LabelSmall.ko(), color = c.textSecondary, maxLines = 1)
                             }
                         }
@@ -775,6 +813,14 @@ fun DrivingScreen(g: Game, data: DemoData) {
         } else {
             Text(stringResource(R.string.drive_next), style = TripType.BodyLarge.ko(), color = c.textSecondary)
             Text(next.name, style = TripType.HeadlineSmall.ko(), color = c.text)
+            g.petData?.forStop(next.name)?.takeIf { g.petOn }?.let { sp ->
+                val v = judgePet(sp, g.pet).verdict
+                Spacer(Modifier.height(6.dp))
+                Row(Modifier.clip(RoundedCornerShape(24.dp)).border(2.dp, when (v) { PetVerdict.OK -> c.green; PetVerdict.CHECK -> c.ochre; PetVerdict.NO -> c.stamp }, RoundedCornerShape(24.dp)).padding(horizontal = 16.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
+                    PawIcon(24.dp, c.text); Spacer(Modifier.width(8.dp)); VerdictMark(v, 26.dp); Spacer(Modifier.width(8.dp))
+                    Text(stringResource(R.string.pet_drive_tag, stringResource(when (v) { PetVerdict.OK -> R.string.pet_v_ok; PetVerdict.CHECK -> R.string.pet_v_check; PetVerdict.NO -> R.string.pet_v_no })), style = TripType.LabelMedium.copy(fontWeight = FontWeight.Bold).ko(), color = c.text, maxLines = 1)
+                }
+            }   // 주행 중에는 꼬리표 하나만, 조작 없음
             Row(verticalAlignment = Alignment.Bottom) {
                 Text("18", style = TripType.DisplayDriving.copy(fontSize = 168.sp, lineHeight = 180.sp).ko(), color = c.text)
                 Text(" " + stringResource(R.string.drive_min_unit), style = TripType.TitleMedium.ko(), color = c.textSecondary, modifier = Modifier.padding(bottom = 28.dp))

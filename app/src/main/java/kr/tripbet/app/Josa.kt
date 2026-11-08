@@ -13,6 +13,7 @@ object Josa {
     fun hasBatchim(s: String) = lastIndex(s) != 0
     fun iGa(s: String) = if (hasBatchim(s)) "이" else "가"
     fun euRo(s: String) = if (!hasBatchim(s) || lastIndex(s) == 8) "로" else "으로"   // 8 = ㄹ 받침
+    fun eunNeun(s: String) = if (hasBatchim(s)) "은" else "는"
     fun eulReul(s: String) = if (hasBatchim(s)) "을" else "를"
     fun ieyo(s: String) = if (hasBatchim(s)) "이에요" else "예요"
 }

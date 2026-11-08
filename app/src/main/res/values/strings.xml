@@ -185,8 +185,60 @@
     <string name="tts_alert">내기 중간 소식이에요. 내비보다 %1$d분 빨라요.</string>
     <string name="tts_tie">둘 다 가까웠어요!</string>
     <string name="tts_arrived">다음 휴게소에 도착했어요. 결과를 확인해요.</string>
+    <!-- 반려동물 동반 (문구표 11) -->
+    <string name="pet_chip">반려동물 동반</string>
+    <string name="pet_screen_title">반려동물과 함께 가요</string>
+    <string name="pet_title">반려동물 동반</string>
+    <string name="pet_sub">반려견 시설이 있는 곳부터, 이용 조건에 맞춰 보여 드려요</string>
+    <string name="pet_info_title">반려견 정보</string>
+    <string name="pet_summary">%1$s · 체고 %2$dcm · %3$dkg</string>
+    <string name="pet_empty">정보를 넣어 주세요</string>
+    <string name="pet_edit">수정</string>
+    <string name="pet_name_default">반려견</string>
+    <string name="pet_local_note">반려견 정보는 이 기기에만 저장돼요. 계정은 필요 없어요.</string>
+    <string name="pet_see_rest">쉴 곳 보기</string>
+    <string name="pet_profile_title">반려견 정보</string>
+    <string name="pet_profile_hint">이 기기에만 저장돼요.</string>
+    <string name="pet_save">저장</string>
+    <string name="pet_f_name">이름</string>
+    <string name="pet_f_name_hint">없어도 돼요</string>
+    <string name="pet_f_height">체고</string>
+    <string name="pet_f_height_sub">어깨까지 높이</string>
+    <string name="pet_f_weight">몸무게</string>
+    <string name="pet_f_danger">맹견 여부</string>
+    <string name="pet_danger_no">아니에요</string>
+    <string name="pet_danger_yes">맞아요</string>
+    <string name="pet_unset">정하세요</string>
+    <string name="pet_unit_cm">cm</string>
+    <string name="pet_unit_kg">kg</string>
+    <string name="pet_v_ok">이용 가능</string>
+    <string name="pet_v_check">조건 확인 필요</string>
+    <string name="pet_v_no">이용 불가</string>
+    <string name="pet_construction">공사 중</string>
+    <string name="pet_detail_title">%1$s 반려견 놀이터</string>
+    <string name="pet_r_ok">%1$s(체고 %2$dcm · %3$dkg)%4$s 이용할 수 있어요.</string>
+    <string name="pet_r_missing">%1$s 자료가 없어요. 현장에서 확인해 주세요.</string>
+    <string name="pet_r_noprofile">반려견 정보를 넣으면 알려 드려요.</string>
+    <string name="pet_r_height">체고 한도 %1$dcm 이하예요. %2$s%3$s %4$dcm예요.</string>
+    <string name="pet_r_weight">몸무게 한도 %1$dkg 이하예요. %2$s%3$s %4$dkg예요.</string>
+    <string name="pet_r_construction">지금은 공사 중이라 이용할 수 없어요.</string>
+    <string name="pet_r_closed">지금은 운영하지 않아요.</string>
+    <string name="pet_row_height">체고 한도</string>
+    <string name="pet_row_weight">몸무게 한도</string>
+    <string name="pet_row_size">크기 구분</string>
+    <string name="pet_row_breed">맹견</string>
+    <string name="pet_row_fee">요금</string>
+    <string name="pet_row_hours">운영 시간</string>
+    <string name="pet_row_dir">방향</string>
+    <string name="pet_row_status">상태</string>
+    <string name="pet_val_height">%1$dcm 이하</string>
+    <string name="pet_val_weight">%1$dkg 이하</string>
+    <string name="pet_val_none">자료 없음</string>
+    <string name="pet_asof">%1$s · 현장은 다를 수 있어요</string>
+    <string name="pet_closed_arrive">도착 때는 문 닫는 시간이에요</string>
+    <string name="pet_closed_arrive_detail">도착 예상 %1$s · 운영 %2$s</string>
+    <string name="pet_demo_time">시연용 시각 %1$s 출발 기준</string>
+    <string name="pet_to_waypoint">경유지로 넣기</string>
+    <string name="pet_other_rest">다른 휴게소 보기</string>
+    <string name="pet_drive_tag">반려견 놀이터 %1$s</string>
 </resources>
-
-
-
-

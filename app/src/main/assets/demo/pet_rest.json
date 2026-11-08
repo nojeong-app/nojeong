@@ -1,0 +1,146 @@
+{
+  "version": "1차 시연 경로분 (서울→강릉 영동선), 2026-11-08 작성",
+  "note": "전국 목록은 작성 중(반려시설_근거.md 참고). 이 파일의 stops 는 앱 시연 경로 휴게소 6곳과 용인(강릉)을 먼저 담았습니다. 본문에서 읽은 사실만 적었고, 모르는 항목은 null 로 두었습니다. 앱은 null 을 「조건 확인 필요」로 표시하면 됩니다.",
+  "ruleForApp": {
+    "judge": "heightLimitCm 이 숫자이면 반려견 체고와 대조해 이용 가능/이용 불가, null 이면 조건 확인 필요. 맹견 여부는 muzzleOrBreedRule 이 null 이므로 맹견 프로필이면 조건 확인 필요.",
+    "footer": "현장은 다를 수 있어요"
+  },
+  "asOf": {
+    "kexCount": "한국도로공사 2025년 6월 기준 집계(전국 20곳), 뉴시스 2025-10-03 보도",
+    "deokpyeong": "2026-06-10 재오픈 보도(운영시간)"
+  },
+  "stops": [
+    {
+      "name": "용인(강릉)휴게소",
+      "stdRestCd": "000207",
+      "unitCode": "010",
+      "route": "영동선",
+      "direction": "강릉방향",
+      "lat": 37.24593,
+      "lng": 127.242436,
+      "pet": {
+        "playground": true,
+        "kind": "반려견 놀이터",
+        "place": "주유소와 휴게소 사이 공간",
+        "heightLimitCm": null,
+        "weightLimitKg": null,
+        "sizeSplit": null,
+        "muzzleOrBreedRule": null,
+        "fee": null,
+        "hours": null,
+        "status": null
+      },
+      "source": "뉴시스 2025-10-03 09:00 보도(고향길 반려동물 놀이터 있는 휴게소 쉬어갈까) 본문. https://www.newsis.com/view/NISX20251002_0003354073",
+      "asOfText": "도로공사 2025년 6월 집계",
+      "confidence": "놀이터 있음: 보도 본문 직접 확인. 이용 조건은 근거 없음(조건 확인 필요)"
+    },
+    {
+      "name": "덕평휴게소",
+      "stdRestCd": "000292",
+      "unitCode": "154",
+      "route": "영동선",
+      "direction": "미확인(도로공사 자료에 방향 구분 없는 단일 항목)",
+      "lat": 37.24133,
+      "lng": 127.389428,
+      "pet": {
+        "playground": true,
+        "kind": "덕평펫파크(천연잔디광장·애견수영장·애견카페·용품샵)",
+        "place": "덕평자연휴게소 안",
+        "area": "약 6,600㎡(매일신문 2026-09-21)",
+        "heightLimitCm": null,
+        "weightLimitKg": null,
+        "sizeSplit": "수영장만 소형·중형견 구역과 대형견 구역 분리(체고 기준 수치 없음)",
+        "muzzleOrBreedRule": null,
+        "fee": null,
+        "hours": "매일 10:00~19:00 (2026-06-10 재오픈 보도)",
+        "status": "운영 중(2026-06 재오픈)"
+      },
+      "source": "동행뉴스 2026-06-10 재오픈 보도 https://dhnews.co.kr/news/view/1065592275081634 ; 뉴시스 2025-10-03 ; 매일신문 2026-09-21 https://www.imaeil.com/page/view/2026092115480853838",
+      "asOfText": "도로공사 2025년 6월 집계, 운영시간은 2026년 6월 보도",
+      "confidence": "놀이터·운영시간: 보도 본문 직접 확인. 체고·요금·맹견 규정은 근거 없음(조건 확인 필요). 운영시간은 계절·시설 사정으로 바뀔 수 있음"
+    },
+    {
+      "name": "여주(강릉)휴게소",
+      "stdRestCd": "000203",
+      "unitCode": "012",
+      "route": "영동선",
+      "direction": "강릉방향",
+      "lat": 37.238548,
+      "lng": 127.569035,
+      "pet": null,
+      "source": "반려 시설 근거를 찾지 못함(2026-11-08 검색: 보도 본문과 도로공사 편의시설 목록 모두 반려 항목 없음). 목록에 없다고 해서 없다고 단정하지는 않음",
+      "confidence": "확인 못 함 — 꼬리표를 달지 말 것"
+    },
+    {
+      "name": "문막(강릉)휴게소",
+      "stdRestCd": "000201",
+      "unitCode": "024",
+      "route": "영동선",
+      "direction": "강릉방향",
+      "lat": 37.335429,
+      "lng": 127.857693,
+      "pet": null,
+      "source": "반려 시설 근거를 찾지 못함",
+      "confidence": "확인 못 함 — 꼬리표를 달지 말 것"
+    },
+    {
+      "name": "횡성(강릉)휴게소",
+      "stdRestCd": "000194",
+      "unitCode": "019",
+      "route": "영동선",
+      "direction": "강릉방향",
+      "lat": 37.463308,
+      "lng": 128.134391,
+      "pet": null,
+      "source": "반려 시설 근거를 찾지 못함",
+      "confidence": "확인 못 함 — 꼬리표를 달지 말 것"
+    },
+    {
+      "name": "평창(강릉)휴게소",
+      "stdRestCd": "000188",
+      "unitCode": "101",
+      "route": "영동선",
+      "direction": "강릉방향",
+      "lat": 37.60581,
+      "lng": 128.453116,
+      "pet": null,
+      "source": "반려 시설 근거를 찾지 못함",
+      "confidence": "확인 못 함 — 꼬리표를 달지 말 것"
+    },
+    {
+      "name": "강릉(강릉)휴게소",
+      "stdRestCd": "000181",
+      "unitCode": "111",
+      "route": "영동선",
+      "direction": "강릉방향",
+      "lat": 37.757987,
+      "lng": 128.806307,
+      "pet": null,
+      "source": "반려 시설 근거를 찾지 못함",
+      "confidence": "확인 못 함 — 꼬리표를 달지 말 것"
+    }
+  ],
+  "officialRuleSearch": "2026-11-08 재검색: 덕평·용인(강릉)의 체고·몸무게·맹견·입마개·요금을 공식 안내(관광공사 덕평자연휴게소 쪽, 도로공사 공지)에서 찾지 못함. 블로그·옛 기사만 있어 넣지 않음. 따라서 두 곳 모두 시연의 판정은 「조건 확인 필요」가 정직한 표시.",
+  "examplesOutsideDemoRoute": [
+    {
+      "name": "죽암(서울/부산)휴게소",
+      "stdRestCd": [
+        "000024",
+        "000026"
+      ],
+      "heightLimitCm": 60,
+      "rule": "체고 60cm 이하만 이용",
+      "fee": "무료",
+      "area": "294㎡",
+      "source": "매일신문 2026-09-21 https://www.imaeil.com/page/view/2026092115480853838 (본문 직접 확인)"
+    },
+    {
+      "name": "가평휴게소",
+      "route": "서울양양선",
+      "stdRestCd": null,
+      "sizeSplit": "체고 40cm 기준 소형견·중대형견 운동장 구분",
+      "hours": "24시간 연중무휴",
+      "source": "매일신문 2026-09-21 (본문 직접 확인)"
+    }
+  ]
+}
